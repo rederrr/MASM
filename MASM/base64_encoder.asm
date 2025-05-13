@@ -4,27 +4,20 @@ mesg1 DB "please input strings: $"
 mesg2 DB "Base64_Encode: $"
 next_row DB 0dh,0ah,'$'
 base64 db 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-result DB 135,?,135 DUP('$')  ;编码后132字符加2=加1$
+result DB 135,?,135 DUP('$')    ;编码后132字符加2=加1$
 
-strings label byte          ;标准输入缓冲区
-    max DB 100              ;最大可输入99个字符
+strings label byte              ;标准输入缓冲区
+    max DB 100                  ;最大可输入99个字符
     act DB ?
     inputstr DB 100 DUP('$')
 
 DATA ENDS
 
-; STACK SEGMENT
-;     DB 50H DUP(?)
-; STACK ENDS
-
 CODE SEGMENT 
-ASSUME DS:DATA,CS:CODE;,SS:STACK
+ASSUME DS:DATA,CS:CODE
 START:
-    MOV AX,DATA             ;初始化寄存器
+    MOV AX,DATA
     MOV DS,AX
-    ; MOV AX,STACK
-    ; MOV SS,AX
-    ; MOV SP,50H
 
     CALL WELCOME     
     CALL INPUT       
